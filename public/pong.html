@@ -8,3 +8,62 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 </head>
+
+<body id="body">
+    <canvas width="720px" height="540px" id="pong" class="game"></canvas>
+    
+    <button type="button" id="optButton" class="opt-button">
+        <h3>OPTIONS</h3>
+    </button>
+
+    <div id="options" class="popup">
+        <div class="popContent">
+            <img src="img/PongLOGO.png" alt="PONG logo">
+            <hr>
+            <form>
+                <div class="radio-inputs">
+                    <label class="radio">
+                        <input type="radio" id="easy" name="diff"></input>
+                        <span class="name" id="E">Easy</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="medium" name="diff"></input>
+                        <span class="name" id="M">Medium</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="hard" name="diff"></input>
+                        <span class="name" id="H">Hard</span>
+                    </label>
+                </div>
+                <div class="radio-inputs">
+                    <label class="radio">
+                        <input type="radio" id="single" name="mode"></input>
+                        <span class="name" id="mode">Singleplayer</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" id="multi" name="mode"></input>
+                        <span class="name" id="mode">Multiplayer</span>
+                    </label>
+                </div>
+                <div class="radio-inputs">
+                    <label class="radio">
+                        <input type="checkbox" id="obstacles">
+                        <span class="name" id="O">Obstacles<span class="checkmark"></span></span>
+                    </label>
+                </div>
+                <button type="button" id="apply" class="apply-button">Apply</button>
+            </form>
+            <p>First player to 10 points wins the game!</p>
+            <p>Multiplayer controls: Left paddle; W (up) S (down) - Right paddle; Arrows (up, down).</p>
+        </div>
+    </div>
+
+    <div id="winScreen" class="popup">
+        <div class="winContent">
+            <h1>GG!</h1>
+        </div>
+    </div>
+    
+</body>
+
+</html>
