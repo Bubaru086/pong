@@ -1,0 +1,203 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-image: linear-gradient(to right, slategrey, whitesmoke, whitesmoke, slategrey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.game {
+    background-image: url("img/PongBG.jpg");
+    border: 10px solid #0A0A0A;
+    box-shadow: 0 0 150px rgba(0, 0, 0, 0.5);
+}
+
+.popup {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    transition: visibility 0.5s, opacity 0.5s;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.5s, 0.5s;
+}
+
+.popContent {
+    display: block;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    padding: 10px;
+}
+
+.popContent img {
+    width: 85%;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+form {
+    margin: 50px;
+}
+
+.winContent {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    padding: 10px;
+}
+
+.opt-button {
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border: 5px solid #0A0A0A;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: black;
+    color: whitesmoke;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s ease;
+}
+
+.opt-button:hover {
+    border: 5px solid whitesmoke;
+    background-color: white;
+    transform: scale(95%);
+    color: #0A0A0A;
+    cursor: pointer;
+}
+
+.opt-button h3 {
+    font-weight: 900;
+    margin: 0;
+}
+
+.radio-inputs {
+    margin: 20px auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 300px;
+    font-size: 14px;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    width: 100%;
+    transition: all 0.25s ease;
+}
+
+.radio-inputs .radio .name:hover {
+    transform: scale(105%);
+}
+
+.radio-inputs .radio input:checked+.name {
+    font-weight: 600;
+}
+
+.radio-inputs .radio input:checked+#E {
+    background-color: rgb(144, 238, 144);
+}
+
+.radio-inputs .radio input:checked+#M {
+    background-color: rgb(238, 238, 144);
+}
+
+.radio-inputs .radio input:checked+#H {
+    background-color: rgb(238, 144, 144);
+}
+
+.radio-inputs .radio input:checked+#mode {
+    background-color: lightblue;
+}
+
+.checkmark {
+    margin: 0 5px;
+    height: 5px;
+    width: 5px;
+    border: 1px solid black;
+    background-color: whitesmoke;
+    transition: all 0.25s ease;
+}
+
+.radio-inputs .radio input:checked+#O {
+    background-color: thistle;
+    width: 50%;
+    margin: auto;
+}
+
+.radio-inputs .radio input:checked+.name .checkmark {
+    background-color: black;
+}
+
+.apply-button {
+    margin: 20px auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 150px;
+    font-size: 16px;
+    font-weight: 900;
+    flex: 1 1 auto;
+    text-align: center;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: .5rem 0;
+    transition: all 0.25s ease;
+}
+
+.apply-button:hover {
+    transform: scale(105%);
+    background-color: #0A0A0A;
+    color: whitesmoke;
+}
+
+p {
+    font-size: small;
+    margin: auto;
+}
