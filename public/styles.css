@@ -134,15 +134,15 @@ form {
 }
 
 .radio-inputs .radio input:checked+#E {
-    background-color: rgb(144, 238, 144);
+    background-color: #90ee90;
 }
 
 .radio-inputs .radio input:checked+#M {
-    background-color: rgb(238, 238, 144);
+    background-color: #eeee90;
 }
 
 .radio-inputs .radio input:checked+#H {
-    background-color: rgb(238, 144, 144);
+    background-color: #ee9090;
 }
 
 .radio-inputs .radio input:checked+#mode {
