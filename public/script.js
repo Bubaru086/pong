@@ -64,7 +64,6 @@ function applyOptions() {
     return newGame();
 }
 
-
 function newGame() {
 
     let lastFrameTime = 0;
@@ -171,7 +170,6 @@ function newGame() {
             && ball.y + ball.height > paddle.y;
     }
 
-    
     // Update game state
     function update(deltaTime) {
         const deltaTimeSeconds = deltaTime / 1000;
@@ -222,8 +220,6 @@ function newGame() {
             ball.vx *= -1;
             ball.x = paddleTwo.x - ball.width;
         }
-
-
 
         // Ball collisions with obstacles
         obstacles.forEach(obs => {
@@ -284,4 +280,123 @@ function newGame() {
             }, 500)
         }, 500)
     }
+
+    // Draw game elements
+    function draw() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw score
+        ctx.fillStyle = 'lightgray';
+        ctx.font = "900 " + canvas.height / 6 + "px Arial";
+        ctx.fillText(scoreOne, canvas.width / 5, canvas.height / 2 + canvas.height / 16);
+        ctx.fillText(scoreTwo, canvas.width - canvas.width / 3.5, canvas.height / 2 + canvas.height / 16);
+
+        // Draw line
+        ctx.fillStyle = 'whitesmoke';
+        for (let i = unit; i < canvas.height - unit; i += unit * 2) {
+            ctx.fillRect(canvas.width / 2 - unit / 2, i, unit, unit);
+        }
+
+        // Draw obstacles
+        ctx.fillStyle = 'red';
+        obstacles.forEach(obstacle => {
+            //ctx.fillStyle = 'white';
+            //ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            ctx.fillStyle = 'darkred';
+            ctx.fillRect(obstacle.x + obstacle.width * 0.1, obstacle.y + obstacle.height * 0.1, obstacle.width * 0.8, obstacle.height * 0.8);
+            ctx.fillStyle = 'red';
+            ctx.fillRect(obstacle.x + obstacle.width * 0.35, obstacle.y + obstacle.height * 0.02, obstacle.width * 0.3, obstacle.height * 0.96);
+            ctx.fillRect(obstacle.x + obstacle.width * 0.02, obstacle.y + obstacle.height * 0.35, obstacle.width * 0.96, obstacle.height * 0.3);
+        });
+
+        // 3, 2, 1
+        ctx.fillStyle = 'lightgreen';
+        ctx.font = "900 " + canvas.height / 6 + "px Trebuchet MS";
+        if (three) {
+            ctx.fillText("3", canvas.width / 2 + unit, canvas.height - 1.5 * unit);
+        } else if (two) {
+            ctx.fillText("2", canvas.width / 2 + unit, canvas.height - 1.5 * unit);
+        } else if (one) {
+            ctx.fillText("1", canvas.width / 2 + unit, canvas.height - 1.5 * unit);
+        }
+
+        // Draw paddles
+        ctx.fillStyle = 'white';
+        ctx.fillRect(paddleOne.x, paddleOne.y, paddleOne.width, paddleOne.height);
+        ctx.fillRect(paddleTwo.x, paddleTwo.y, paddleTwo.width, paddleTwo.height);
+
+        // Draw ball
+        ctx.fillStyle = 'white';
+        ctx.fillRect(ball.x, ball.y, ball.width, ball.height);
+
+        // Draw walls
+        ctx.fillStyle = 'whitesmoke';
+        ctx.fillRect(0, 0, canvas.width, unit);
+        ctx.fillRect(0, canvas.height - unit, canvas.width, canvas.height);
+    }
+
+    let winScreen = document.getElementById("winScreen");
+
+    function checkWin() {
+        if (scoreOne >= 10 || scoreTwo >= 10) {
+            winScreen.classList.add("show");
+            pause();
+            setTimeout(function () {
+                winScreen.classList.remove("show");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }, 3000);
+        }
+    }
+
+    // Main game loop
+    function gameLoop(timestamp) {
+        if (!paused) {
+            // Calculate the time elapsed since the last frame
+            const deltaTime = timestamp - lastFrameTime;
+            // Update the game state based on the time elapsed
+            update(deltaTime);
+            checkWin();
+            draw();
+            // Request the next frame
+            requestAnimationFrame(gameLoop);
+            // Update the last frame time
+            lastFrameTime = timestamp;
+        }
+    }
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'w' && !singleplayer) {
+            paddleOne.vy = -paddleSpeed;
+        } else if (e.key === 's' && !singleplayer) {
+            paddleOne.vy = paddleSpeed;
+        } else if (e.key === 'ArrowUp') {
+            paddleTwo.vy = -paddleSpeed;
+        } else if (e.key === 'ArrowDown') {
+            paddleTwo.vy = paddleSpeed;
+        }
+    });
+
+    window.addEventListener('keyup', function (e) {
+        if ((e.key === 'w' || e.key === 's') && !singleplayer) {
+            paddleOne.vy = 0;
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            paddleTwo.vy = 0;
+        }
+    });
+
+    if (!startup) {
+        // Reset ball
+        reset();
+
+        // Start the game loop
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Game object
+    return {
+        pause: pause,
+        unpause: unpause
+    };
+
 }
