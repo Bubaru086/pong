@@ -170,4 +170,118 @@ function newGame() {
             && ball.y < paddle.y + paddle.height
             && ball.y + ball.height > paddle.y;
     }
+
+    
+    // Update game state
+    function update(deltaTime) {
+        const deltaTimeSeconds = deltaTime / 1000;
+
+        // Move paddles
+        paddleOne.y += paddleOne.vy * paddleSpeed * deltaTimeSeconds;
+        paddleTwo.y += paddleTwo.vy * paddleSpeed * deltaTimeSeconds;
+
+        // Paddle collisions with walls
+        if (singleplayer) {
+            if (paddleOne.y < 20 || paddleOne.y > canvas.height - paddleOne.height - unit / 2) {
+                paddleOne.y -= 20 * paddleOne.vy / paddleSpeed;
+                paddleOne.vy *= -1;
+            }
+        } else {
+            if (paddleOne.y < unit) {
+                paddleOne.y = unit;
+            }
+            else if (paddleOne.y > canvas.height - paddleHeight - unit) {
+                paddleOne.y = canvas.height - paddleHeight - unit;
+            }
+        }
+
+        if (paddleTwo.y < unit) {
+            paddleTwo.y = unit;
+        }
+        else if (paddleTwo.y > canvas.height - paddleHeight - unit) {
+            paddleTwo.y = canvas.height - paddleHeight - unit;
+        }
+
+        // Move ball
+        ball.x += ball.vx * ballSpeed * deltaTimeSeconds;
+        ball.y += ball.vy * ballSpeed * deltaTimeSeconds;
+
+        // Ball collisions with walls
+        if (ball.y < unit || ball.y + unit > canvas.height - unit) {//
+            ball.y -= 10 * ball.vy / ballSpeed;
+            ball.vy *= -1;
+        }
+
+        // Ball collisions with paddles
+        if (collision(ball, paddleOne)) {
+            ball.vx *= -1;
+            ball.x = paddleOne.x + paddleOne.width;
+        }
+
+        if (collision(ball, paddleTwo)) {
+            ball.vx *= -1;
+            ball.x = paddleTwo.x - ball.width;
+        }
+
+
+
+        // Ball collisions with obstacles
+        obstacles.forEach(obs => {
+            if (collision(ball, obs)) {
+
+                // Change ball's direction
+                ball.vy *= -1;
+
+                //obstacles.shift();
+                index = obstacles.indexOf(obs);
+                if (index > -1) {
+                    obstacles.splice(index, 1);
+                }
+
+                let obstacle = {
+                    x: Math.floor(Math.random() * (canvas.width / 2) / unit + (canvas.width / 4) / unit) * unit,
+                    y: Math.floor(Math.random() * (canvas.height - (6 * unit)) / unit + 3) * unit,
+                    width: unit,
+                    height: unit
+                };
+                obstacles.push(obstacle);
+            }
+        });
+
+        // Ball out of bounds
+        if ((ball.x < 0 || ball.x > canvas.width) && !ball.reset) {
+            if (ball.vx >= 0) {
+                scoreOne++;
+            } else {
+                scoreTwo++;
+            }
+            ball.reset = true;
+
+            // Reset ball position
+            reset();
+        }
+    }
+
+    function reset() {
+        three = true;
+        setTimeout(function () {
+            three = false;
+            two = true;
+            setTimeout(function () {
+                two = false;
+                one = true;
+                setTimeout(function () {
+                    one = false;
+                    ball.x = canvas.width / 2;
+                    //ball.y = canvas.height/2;
+                    ball.y = Math.random() * canvas.height / 2 + canvas.height / 4;
+                    if (singleplayer) {
+                        ball.vx = ballSpeed;
+                    }
+                    ball.vy = -ballSpeed;
+                    ball.reset = false;
+                }, 500);
+            }, 500)
+        }, 500)
+    }
 }
