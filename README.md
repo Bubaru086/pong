@@ -8,8 +8,8 @@ Experience the nostalgia of classic arcade gaming with this rendition of Pong! P
 
 # Showcase
 
-![Game options popup](docs/img/pongOptions.png)
+![Game options popup](docs/design_system/img/pongOptions.png)
 
-![Pong regular mode](docs/img/pongRegular.png)
+![Pong regular mode](docs/design_system/img/pongRegular.png)
 
-![Pong easy mode with obstacles](docs/img/pongEasy.png)
+![Pong easy mode with obstacles](docs/design_system/img/pongEasy.png)
