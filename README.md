@@ -13,3 +13,5 @@ Experience the nostalgia of classic arcade gaming with this rendition of Pong! P
 ![Pong regular mode](docs/design_system/img/pongRegular.png)
 
 ![Pong easy mode with obstacles](docs/design_system/img/pongEasy.png)
+
+![Pong leaderboard](docs/design_system/img/Leaderboard.png)

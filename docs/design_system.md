@@ -387,7 +387,41 @@ function checkWin() {
 }
 ```
 
+## Utilizing servers
+
+### New options popup
+![options](/docs/design_system/img/newMenu.png)
+
+#### Modifications
+- Removed multiplayer option too introduce a points system for a leaderboard.
+- Added 'leaderboard' button to access session scores.
+- Player score is the amount of points gained without losing.
+
+### Leaderboard page
+![leaderboard](/docs/design_system/img/Leaderboard.png)
+
+### Game version 2
+- PHP models and full game progress found in V02 at the end of this file.
+- Full Game class was made with all the functionnalities.
+- Javascript was modified to accompany PHP states and updates.
+- Could not be implemented due to ajax requests being too slow for Pong.
+
 # Source Code
+
+## V01
 ### [HTML](../public/pong.html)
 ### [CSS](../public/styles.css)
-### [JS](../public/script.js)
+### [JS](../version/v01/script.js)
+
+## V02
+### [index.php](../version/v02/index.php)
+### [game.php](../version/v02/game.php)
+### [_init.php](../version/v02/_init.php)
+### [_update.php](../version/v02/_update.php)
+### [script.js](../version/v02/script.js)
+
+## V03 (public)
+### [index.php](../public/index.php)
+### [setScore.php](../public/setScore.php)
+### [leaderboard.php](../public/leaderboard.php)
+### [script.js](../public/script.js)
