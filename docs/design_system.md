@@ -411,14 +411,14 @@ function checkWin() {
 ## V01
 ### [HTML](../public/pong.html)
 ### [CSS](../public/styles.css)
-### [JS](../version/v01/script.js)
+### [JS](../versions/v01/script.js)
 
 ## V02
-### [index.php](../version/v02/index.php)
-### [game.php](../version/v02/game.php)
-### [_init.php](../version/v02/_init.php)
-### [_update.php](../version/v02/_update.php)
-### [script.js](../version/v02/script.js)
+### [index.php](../versions/v02/index.php)
+### [game.php](../versions/v02/game.php)
+### [_init.php](../versions/v02/_init.php)
+### [_update.php](../versions/v02/_update.php)
+### [script.js](../versions/v02/script.js)
 
 ## V03 (public)
 ### [index.php](../public/index.php)
