@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
+    <div class='leaderboard'>
     <h1>Leaderboard</h1>
     <table>
         <tr>
@@ -39,7 +39,7 @@
         }
         ?>
     </table>
-    <a href="../">Play Again</a>
+    <a href="../" class="apply-button">Play Again</a>
     </div>
 </body>
 </html>

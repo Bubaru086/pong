@@ -60,7 +60,7 @@
                         <span class="name" id="O">Obstacles<span class="checkmark"></span></span>
                     </label>
                 </div>
-                <button type="button" id="apply" class="apply-button">Apply</button>
+                <button type="button" id="apply" class="apply-button">Play!</button>
                 <a href="leaderboard.php" class="apply-button">Leaderboard</a>
             </form>
             <p>First player to 10 points wins the game!</p>

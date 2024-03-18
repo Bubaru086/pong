@@ -59,6 +59,7 @@ form {
 }
 
 .winContent {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: whitesmoke;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
@@ -206,3 +207,47 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.leaderboard {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the table header */
+  th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  /* Style the table rows */
+  tr {
+    background-color: #fff;
+  }
+  
+  /* Style alternating rows */
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Style table cell */
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Hover effect on rows */
+  tr:hover {
+    background-color: #e6f7ff;
+  }
+  
