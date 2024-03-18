@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("medium").checked = true;
-    //document.getElementById("single").checked = true;
+    document.getElementById("single").checked = true;
 });
 
 function applyOptions() {
@@ -48,14 +48,12 @@ function applyOptions() {
         unit = 20;
     }
 
-    /*
     // Update mode
     if (multiSelect.checked) {
         singleplayer = false;
     } else {
         singleplayer = true;
     }
-    */
 
     // Update obstacles
     obstaclesBool = obstaclesSelect.checked;
@@ -63,7 +61,43 @@ function applyOptions() {
     // Start game with new options
     startup = false;
 
+    // Send options to PHP using AJAX
+    sendOptions(unit, singleplayer, obstaclesBool);
+
     return newGame();
+}
+
+function sendOptions(u, s, o) {
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Define the PHP endpoint URL
+    const url = '_config.php';
+
+    // Prepare the data to be sent
+    const data = JSON.stringify({ 
+        unit: u,
+        singleplayer: s,
+        obstaclesBool: o,
+    });
+
+    // Configure the AJAX request
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Send the AJAX request
+    xhr.send(data);
+
+    // Optional: Handle response from PHP if needed
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Optional: Handle response from PHP
+            console.log(xhr.responseText);
+        } else {
+            // Handle error
+            console.error('Error sending unit to PHP.');
+        }
+    };
 }
 
 function newGame() {
@@ -249,7 +283,8 @@ function newGame() {
         // Ball out of bounds
         if ((ball.x < 0 || ball.x > canvas.width) && !ball.reset) {
             if (ball.vx >= 0) {
-                lost();
+                scoreOne++;
+                //updateScoreOne();
             } else {
                 scoreTwo++;
             }
@@ -258,40 +293,6 @@ function newGame() {
             // Reset ball position
             reset();
         }
-    }
-
-    function sendScore() {
-        let playerName = prompt("Enter your name:");
-
-        // Create a new XMLHttpRequest object
-        const xhr = new XMLHttpRequest();
-
-        // Define the PHP endpoint URL
-        const url = 'setScore.php';
-
-        // Prepare the data to be sent
-        const data = JSON.stringify({
-            score: scoreTwo,
-            name: playerName
-        });
-
-        // Configure the AJAX request
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        // Send the AJAX request
-        xhr.send(data);
-
-        // Optional: Handle response from PHP if needed
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                // Optional: Handle response from PHP
-                console.log(xhr.responseText);
-            } else {
-                // Handle error
-                console.error('Error sending unit to PHP.');
-            }
-        };
     }
 
     function reset() {
@@ -325,7 +326,7 @@ function newGame() {
         // Draw score
         ctx.fillStyle = 'lightgray';
         ctx.font = "900 " + canvas.height / 6 + "px Arial";
-        //ctx.fillText(scoreOne, canvas.width / 5, canvas.height / 2 + canvas.height / 16);
+        ctx.fillText(scoreOne, canvas.width / 5, canvas.height / 2 + canvas.height / 16);
         ctx.fillText(scoreTwo, canvas.width - canvas.width / 3.5, canvas.height / 2 + canvas.height / 16);
 
         // Draw line
@@ -374,15 +375,48 @@ function newGame() {
 
     let winScreen = document.getElementById("winScreen");
 
-    function lost() {
-        winScreen.classList.add("show");
-        pause();
-        setTimeout(function () {
-            sendScore();
-            winScreen.classList.remove("show");
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }, 500); // ms
+    function checkWin() {
+        if (scoreOne >= 10 || scoreTwo >= 10) {
+            winScreen.classList.add("show");
+            pause();
+            setTimeout(function () {
+                winScreen.classList.remove("show");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }, 3000);
+        }
     }
+
+    /*
+
+    function updateScoreOne(){
+        console.log('---------------------------------------- Updating scoreOne...');
+        fetch('game.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'updateScoreOne',
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            scoreOne = data;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function getGameState() {
+        fetch('game.php?action=getGameState')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Received game state:', data);
+            scoreOne = data;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    
+    */
 
     // Main game loop
     function gameLoop(timestamp) {
@@ -391,7 +425,8 @@ function newGame() {
             const deltaTime = timestamp - lastFrameTime;
             // Update the game state based on the time elapsed
             update(deltaTime);
-            //checkWin();
+            //getGameState();
+            checkWin();
             draw();
             // Request the next frame
             requestAnimationFrame(gameLoop);
